@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Management System</title>
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="slms.css">
+
+    <!-- Leaflet CSS (required for maps) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+
+    <!-- Chart.js (for charts) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- PDF.js (for PDF text extraction) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+
+    <!-- PDF.js Worker -->
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+
+    <header id="home">
+  <h1><span class="site-name">Githiga Boys High School</span></h1>
+</header>
+
+
+    <!-- Navigation -->
+    <nav id="main-nav">
+        <ul id="nav-list">
+            <li><a href="#home" class="nav-active"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#location"><i class="fas fa-map-marker-alt"></i> Location</a></li>
+            <li><a href="#login"><i class="fas fa-user"></i> Login</a></li>
+        </ul>
+    </nav>
+
+   
+    <!-- Mission -->
+    <section id="mission">
+        <h2>Mission</h2>
+        <div class="card">
+            <p>To provide quality education in a disciplined and nurturing environment.</p>
+        </div>
+    </section>
+
+    <!-- Vision -->
+    <section id="vission">
+        <h2>Vision</h2>
+        <div class="card">
+            <p>To be a center of academic excellence and moral integrity.</p>
+        </div>
+    </section>
+
+    <!-- Location -->
+    <section id="location" class="location-section">
+        <h2>School Location</h2>
+        <div class="map-frame">
+            <p>Allow location access to see directions to Githiga High School.</p>
+            <button onclick="getLocation()">Find My Location & Show Route</button>
+            <div id="user-location">Your location will appear here.</div>
+            <div id="destination"><strong>School Address:</strong>Githiga Boys High School</div>
+            <div id="map-display"></div>
+            <div class="map-actions" style="margin-top: 10px;">
+                <a href="https://maps.app.goo.gl/hbHaM2juv1kn9Bc59" target="_blank" style="color: #3498db; text-decoration: underline; font-size: 0.95rem;">
+                    🔗 Open in Google Maps
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Administration Slider -->
+    <section id="administration">
+        <h2>School Administration Members</h2>
+        <div class="slider-container">
+            <button class="prev" onclick="moveSlide('administration', -1)">&#10094;</button>
+            <div class="slide-track">
+                <div class="admin_slide active" style="background-image: url('BG.webp');">
+                    <div class="slide-overlay">
+                        <h3>Board Members</h3>
+                        <p>Leaders shaping the school's vision and governance.</p>
+                    </div>
+                </div>
+                <div class="admin_slide" style="background-image: url('s1.webp');">
+                    <div class="slide-overlay">
+                        <h3>Principal</h3>
+                        <p>Academic leader and head of school operations.</p>
+                    </div>
+                </div>
+                <div class="admin_slide" style="background-image: url('s2.webp');">
+                    <div class="slide-overlay">
+                        <h3>Deputy Principal</h3>
+                        <p>Supports academic excellence and student discipline.</p>
+                    </div>
+                </div>
+                <div class="admin_slide" style="background-image: url('s5.webp');">
+                    <div class="slide-overlay">
+                        <h3>Dean of Studies</h3>
+                        <p>Oversees curriculum and teacher performance.</p>
+                    </div>
+                </div>
+                <div class="admin_slide" style="background-image: url('s4.webp');">
+                    <div class="slide-overlay">
+                        <h3>Board Master</h3>
+                        <p>Responsible for student boarding and welfare.</p>
+                    </div>
+                </div>
+                <div class="admin_slide" style="background-image: url('jt.png');">
+                    <div class="slide-overlay">
+                        <h3> HOD Games</h3>
+                        <p>Leads sports and physical education programs.</p>
+                    </div>
+                </div>
+            </div>
+            <button class="next" onclick="moveSlide('administration', 1)">&#10095;</button>
+        </div>
+    </section>
+
+    <!-- Infrastructure Slider -->
+    <section id="infrastructure">
+        <h2>School Infrastructure</h2>
+        <div class="slider-container">
+            <button class="prev" onclick="moveSlide('infrastructure', -1)">&#10094;</button>
+            <div class="slide-track">
+                <div class="infra_slide active" style="background-image: url('compound.webp');">
+                    <div class="slide-overlay">
+                        <h3>School Compound</h3>
+                        <p>Spacious, green environment for learning and growth.</p>
+                    </div>
+                </div>
+                <div class="infra_slide" style="background-image: url('classroom.jpg');">
+                    <div class="slide-overlay">
+                        <h3>Classrooms</h3>
+                        <p>Well-ventilated, equipped for modern teaching.</p>
+                    </div>
+                </div>
+                <div class="infra_slide" style="background-image: url('lab.webp');">
+                    <div class="slide-overlay">
+                        <h3>Laboratory</h3>
+                        <p>Equipped for practical science experiments.</p>
+                    </div>
+                </div>
+                <div class="infra_slide" style="background-image: url('library.webp');">
+                    <div class="slide-overlay">
+                        <h3>Library</h3>
+                        <p>Quiet space with books, journals, and digital resources.</p>
+                    </div>
+                </div>
+                <div class="infra_slide" style="background-image: url('slld.jpg');">
+                    <div class="slide-overlay">
+                        <h3>Dining Hall</h3>
+                        <p>Nutritious meals served in a hygienic environment.</p>
+                    </div>
+                </div>
+                <div class="infra_slide" style="background-image: url('domitory.webp');">
+                    <div class="slide-overlay">
+                        <h3>Dormitory</h3>
+                        <p>Safe, supervised boarding with 24/7 care.</p>
+                    </div>
+                </div>
+                <div class="infra_slide" style="background-image: url('playground.webp');">
+                    <div class="slide-overlay">
+                        <h3>Play Ground</h3>
+                        <p>Versatile field for sports, PE, and recreation.</p>
+                    </div>
+                </div>
+            </div>
+            <button class="next" onclick="moveSlide('infrastructure', 1)">&#10095;</button>
+        </div>
+    </section>
+
+    <!-- Co-Curricular Activities Slider -->
+    <section id="cor_curriculum">
+        <h2>Co-Curricular Activities Offered</h2>
+        <div class="slider-container">
+            <button class="prev" onclick="moveSlide('cor_curriculum', -1)">&#10094;</button>
+            <div class="slide-track">
+                <div class="coc_slide active" style="background-image: url('rugby.png');">
+                    <div class="slide-overlay">
+                        <h3>Rugby Team</h3>
+                        <p>Competitive, disciplined, and nationally ranked.</p>
+                    </div>
+                </div>
+                <div class="coc_slide" style="background-image: url('football.png');">
+                    <div class="slide-overlay">
+                        <h3>Football Team</h3>
+                        <p>Talented players with strong teamwork and strategy.</p>
+                    </div>
+                </div>
+                <div class="coc_slide" style="background-image: url('volleyball.png');">
+                    <div class="slide-overlay">
+                        <h3>Volleyball Team</h3>
+                        <p>Fast-paced, energetic, and regionally dominant.</p>
+                    </div>
+                </div>
+                <div class="coc_slide" style="background-image: url('hockey.webp');">
+                    <div class="slide-overlay">
+                        <h3>Hockey Team</h3>
+                        <p>Skilled in field hockey with top-tier coaching.</p>
+                    </div>
+                </div>
+                <div class="coc_slide" style="background-image: url('tenis.png');">
+                    <div class="slide-overlay">
+                        <h3>Tennis Team</h3>
+                        <p>Individual excellence with national champions.</p>
+                    </div>
+                </div>
+                <div class="coc_slide" style="background-image: url('badminton.png');">
+                    <div class="slide-overlay">
+                        <h3>Badminton Team</h3>
+                        <p>Agile players with lightning-fast reflexes.</p>
+                    </div>
+                </div>
+                <div class="coc_slide" style="background-image: url('handball.jpg');">
+                    <div class="slide-overlay">
+                        <h3>Handball Team</h3>
+                        <p>Powerful, fast, and consistently winning.</p>
+                    </div>
+                </div>
+            </div>
+            <button class="next" onclick="moveSlide('cor_curriculum', 1)">&#10095;</button>
+        </div>
+    </section>
+
+    <!-- Religious Activities -->
+    <section id="religious">
+        <h2>Religious Activities</h2>
+        <div class="card">
+            <img src="cu.png" alt="Christian Union">
+            <p>Christian Union</p>
+        </div>
+        <div class="card">
+            <img src="gycs.png" alt="YCS">
+            <p>Youth Catholic Society</p>
+        </div>
+        <div class="card">
+            <img src="muslims.png" alt="Muslims">
+            <p>Muslims</p>
+        </div>
+    </section>
+    <!-- Public Charts on Homepage -->
+    <section id="public-charts" class="container">
+        <h2>📊 School Performance Overview</h2>
+        <div class="charts">
+            <div class="chart-box">
+                <h3>📈 KCSE Mean Grade Trend (All Years)</h3>
+                <canvas id="kcseChart"></canvas>
+            </div>
+            <div class="chart-box">
+                <h3>📊 Subject Performance (Latest Year)</h3>
+                <canvas id="subjectChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- Student Dashboard (Hidden by default) -->
+    <section id="student_dashboard" style="display:none;" class="container">
+        <h2>Welcome, <span id="studentName"></span></h2>
+        <p>Class: <span id="studentClass"></span>, Stream: <span id="studentStream"></span></p>
+        <!-- Charts for student dashboard -->
+   <div class="charts">
+           <div class="chart-box">
+               <h3>📈 Overall Performance</h3>
+              <canvas id="studentKcseChart"></canvas>
+          </div>
+         <div class="chart-box">
+            <h3>📊 Subject Performance</h3>
+            <canvas id="studentSubjectChart"></canvas>
+         </div>
+         </div>
+
+        <section id="materialsSection">
+    <h3>📄 Assignments & Materials</h3>
+    <div class="filter-controls">
+        <select id="subjectFilter">
+            <option value="">All Subjects</option>
+            <!-- Options will be populated by JavaScript -->
+        </select>
+        <select id="typeFilter">
+            <option value="">All Types</option>
+            <option value="assignment">Assignments</option>
+            <option value="revision">Revision Materials</option>
+        </select>
+    </div>
+    <div id="materialsList" class="materials-container">
+        <p class="loading-message">Loading materials...</p>
+    </div>
+    
+</section> 
+<section class="payment-card">
+    <div class="card">
+        <div class="card-header">
+            <div class="icon-container">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 5.5V7H9V5.5L3 7V9L9 10.5V12L3 13.5V15.5L9 14V16H15V14L21 15.5V13.5L15 12V10.5L21 9Z" />
+                </svg>
+            </div>
+            <h3>Online Payment Portal</h3>
+        </div>
+        
+        <div class="card-content">
+            <p>Pay school fees securely via M-Pesa in just a few clicks. Instant confirmation and digital receipt.</p>
+            
+            <div class="fee-statement">
+                <h4>Termly Fee Structure</h4>
+                <div class="fee-item">
+                    <span class="fee-term">Term 1</span>
+                    <span class="fee-amount">KES 20,000</span>
+                </div>
+                <div class="fee-item">
+                    <span class="fee-term">Term 2</span>
+                    <span class="fee-amount">KES 18,000</span>
+                </div>
+                <div class="fee-item">
+                    <span class="fee-term">Term 3</span>
+                    <span class="fee-amount">KES 12,000</span>
+                </div>
+            </div>
+            
+            <div class="benefits-list">
+                <div class="benefit-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                    <span>Secure & encrypted</span>
+                </div>
+                <div class="benefit-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                    <span>Instant confirmation</span>
+                </div>
+                <div class="benefit-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                    <span>Digital receipt</span>
+                </div>
+            </div>
+        </div>
+        
+        <button type="button" onclick="window.location.href='payment.php'">Pay Fees Now</button>
+    </div>
+</section>
+<!--payemetn statments -->
+<!--table for payment / fee statment -->
+<section id="fee-statement-section" class="dashboard-section">
+    <div class="statement-header">
+        <div class="student-info">
+            <h3>Fee Statement</h3>
+            <div class="student-details">
+                <p><strong>Name:</strong> <span id="student-name">Loading...</span></p>
+                <p><strong>Admission No:</strong> <span id="student-admission">Loading...</span></p>
+                <p><strong>Class:</strong> <span id="student-class">Loading...</span></p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="term-selector">
+        <label for="term-select">Select Term:</label>
+        <select id="term-select" class="form-control">
+            <!-- Options will be populated dynamically by JavaScript -->
+            <option value="">Loading terms...</option>
+        </select>
+    </div>
+    
+    <div class="fee-overview">
+        <div class="overview-card">
+            <h4>Total Fee for <span id="selected-term">-</span></h4>
+            <p id="total-fee">KES 0.00</p>
+        </div>
+        <div class="overview-card">
+            <h4>Amount Paid</h4>
+            <p id="amount-paid">KES 0.00</p>
+        </div>
+        <div class="overview-card">
+            <h4>Balance Remaining</h4>
+            <p id="balance-remaining">KES 0.00</p>
+        </div>
+    </div>
+    
+    <div class="table-responsive">
+        <table id="fee-statement-table" class="data-table">
+            <thead>
+                <tr>
+                    <th>Receipt No</th>
+                    <th>Date Paid</th>
+                    <th>Amount Paid</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data will be populated by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="no-data-message" id="no-payments-message" style="display: none;">
+        <p>No payment records found for this term.</p>
+    </div>
+    
+    <div class="statement-footer">
+        <div class="footer-note">
+            <p>This is a computer-generated statement. No signature is required.</p>
+            <p>Generated on: <span id="generation-date"></span></p>
+        </div>
+    </div>
+    
+    <div class="print-action">
+        <button id="print-statement-btn" class="btn btn-secondary">Print Statement</button>
+    </div>
+</section><br><br>
+       <section id="class-chart" class="chart-class">
+        <div class="fcharts"> 
+            <h3>📊 Class Performance Overview</h3>
+            <canvas id="studentClassChart"></canvas>
+        </div>
+
+       </section>
+        </section>
+    </section>
+
+    <!-- Admin Dashboard (Hidden by default) -->
+    <section id="admin_dashboard" style="display:none;" class="container">
+        <h2>Welcome, <span id="adminName"></span> (<span id="adminRole"></span>)</h2>
+
+        <!-- KCSE PDF Upload (Admin Only) -->
+        <section>
+            <h3>📋 Student Results & KCSE Processing</h3>
+            <div class="upload-section">
+                <h4>📄 Upload KCSE-style PDF</h4>
+                <input type="file" id="pdfFile" accept=".pdf" />
+                <select id="yearSelect">
+                    <option value="">-- Select Year --</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                </select>
+                <button id="startBtn">🚀 Upload & Process</button>
+            </div>
+            <div class="status" id="status">Ready</div>
+            <div class="preview">
+                <h3>📋 Extracted Data (CSV Preview)</h3>
+                <pre id="preview">Upload a PDF to begin...</pre>
+            </div>
+        </section>
+
+        <!-- Admin Management Sections -->
+        <section>
+            <h3>📄 Upload Materials</h3>
+            <form id="uploadMaterialForm" enctype="multipart/form-data">
+                <label for="title">Name of the file:</label>
+                <input type="text" name="title" placeholder="Title" required><br><br>
+                <label for="class">Select Student Class</label>
+                <select name="selectClass" id="selectClass" required>
+                    <option value="">-- Select Class --</option>
+                    <option value="Form1">Form 1</option>
+                    <option value="Form2">Form 2</option>
+                    <option value="Form3">Form 3</option>
+                    <option value="Form4">Form 4</option>
+                </select>
+
+                <select name="Cstream" id="selectStream" required>
+                    <option value="">-- Select Stream --</option>
+                </select><br><br>
+                
+                <label for="Subject">Which Subject :</label>
+                <input type="text" name="subject" placeholder="Subject" required>
+                <select name="type" required>
+                    <option value="">Select Type</option>
+                    <option value="assignment">Assignment</option>
+                    <option value="report">Report Card</option>
+                    <option value="revision">Revision Notes</option>
+                </select>
+                <input type="file" name="file" required><br><br>
+                <label for="submit">Upload The Documment</label>
+                <button type="submit">Upload</button>
+            </form>
+        </section><br><br>
+        <form id="registerStudentForm">
+  <h3>Student Registration Section</h3><br><br>
+  
+  <label for="name">Full Name of the student </label>
+  <input type="text" name="name" placeholder="Full Name" required><br><br>
+
+  <label for="username">Student username</label>
+  <input type="text" name="username" placeholder="Username" required><br><br>
+
+  <label for="admissionNo">Student Admission Number</label>
+  <input type="text" id="admissionNo" name="admissionNo" placeholder="Admission No" required><br><br>
+
+  <label for="password">Use student Admission And Year Joined </label>
+  <input type="password" name="password" placeholder="Password" required><br><br>
+
+  <label for="class">Select Student Class</label>
+  <select name="class" id="classSelect" required>
+      <option value="">-- Select Class --</option>
+      <option value="Form1">Form 1</option>
+      <option value="Form2">Form 2</option>
+      <option value="Form3">Form 3</option>
+      <option value="Form4">Form 4</option>
+  </select>
+
+  <select name="stream" id="streamSelect" required>
+      <option value="">-- Select Stream --</option>
+  </select><br><br>
+
+  <label for="submit">Register The Student</label>
+  <button type="submit">Register</button>
+</form>
+<div id="registerStatus" style="margin-top: 10px;"></div>
+ 
+<section>
+    <h3>📋 Student Results & Exam Processing</h3>
+    <div class="section_upload">
+        <h4>📄 Upload Students Results</h4>
+        <form id="examUploadForm" enctype="multipart/form-data">
+            <input type="file" id="2pdfFile" name="pdf" accept=".pdf" required /><br><br>
+            
+            <label for="class">Select Student Class</label>
+            <select name="class" id="2classSelect" required>
+                <option value="">-- Select Class --</option>
+                <option value="Form1">Form 1</option>
+                <option value="Form2">Form 2</option>
+                <option value="Form3">Form 3</option>
+                <option value="Form4">Form 4</option>
+            </select>
+
+            <select name="stream" id="2streamSelect" required>
+                <option value="">-- Select Stream --</option>
+            </select><br><br>
+            
+            <label for="examName">Exam Name:</label>
+            <select name="examName" id="examNameSelect" required>
+                <option value="">-- Select Exam --</option>
+                <option value="End Term">End Term</option>
+                <option value="Mid Term">Mid Term</option>
+                <option value="Opener">Opener</option>
+                <option value="Closer">Closer</option>
+            </select><br><br>
+            
+            <label for="term">Term:</label>
+            <select name="term" id="termSelect" required>
+                <option value="">-- Select Term --</option>
+                <option value="Term1">Term 1</option>
+                <option value="Term2">Term 2</option>
+                <option value="Term3">Term 3</option>
+            </select><br><br>
+            
+            <button type="submit" id="2startBtn">🚀 Upload & Process</button>
+        </form>
+    </div>
+    <div class="status" id="2status">Ready</div>
+    <div class="review">
+        <h3>📋 Extracted Data (CSV Preview)</h3>
+        <pre id="review">Upload a PDF to begin...</pre>
+    </div>
+</section>
+
+
+        <section class="MAcharts">
+    <h3>📊 Class Performance Analysis</h3>
+
+    <div class="Achart">
+        <h4>Form 1</h4>
+        <canvas id="form1Chart"></canvas>
+    </div>
+
+    <div class="Achart">
+        <h4>Form 2</h4>
+        <canvas id="form2Chart"></canvas>
+    </div>
+
+    <div class="Achart">
+        <h4>Form 3</h4>
+        <canvas id="form3Chart"></canvas>
+    </div>
+
+    <div class="Achart">
+        <h4>Form 4</h4>
+        <canvas id="form4Chart"></canvas>
+    </div>
+</section>
+
+     <section class="admin-payments">
+    <h3 class="admin-payments-heading">💰 Payment Overview</h3>
+
+    <!-- Filters -->
+    <div class="filter">
+        <label for="PAfilter">Select Class:</label>
+        <select id="PAfilter">
+            <option value="">All Classes</option>
+            <option value="Form1">Form 1</option>
+            <option value="Form2">Form 2</option>
+            <option value="Form3">Form 3</option>
+            <option value="Form4">Form 4</option>
+        </select>
+
+        <label for="PAtermsort">Sort by Term:</label>
+        <select id="PAtermsort">
+            <option value="">All Terms</option>
+            <option value="Term1">Term 1</option>
+            <option value="Term2">Term 2</option>
+            <option value="Term3">Term 3</option>
+        </select>
+    </div>
+
+    <!-- Table wrapper -->
+    <div class="table-wrapper">
+        <table id="adminPayments">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Term</th>
+                    <th>Total Fee</th>
+                    <th>Amount Paid</th>
+                    <th>Balance Remaining</th>
+                    <th>Carry Forward</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows populated dynamically via JS -->
+            </tbody>
+        </table>
+
+        <!-- 🔄 Loader overlay on table -->
+        <div id="tableLoader" class="table-loader" style="display:none;">
+            <div class="spinner"></div>
+            <p>Capturing table...</p>
+        </div>
+    </div>
+
+    <!-- No data message -->
+    <p id="no-payments-message" style="display:none;">
+        No payment records found.
+    </p>
+
+    <!-- ✅ Download button -->
+    <div class="download-section">
+        <button id="downloadAllPDF">📄 Download All Students PDF</button>
+    </div>
+</section>
+      <section class="admin-logs">
+    <h3>📝 Activity Logs</h3>
+    <div class="logs-wrapper">
+        <!-- 🔒 Password Unlock Form -->
+        <div id="logUnlock">
+            <input type="password" id="logPassword" placeholder="Enter password" />
+            <button onclick="unlockAndLoadLogs()">Unlock Logs</button>
+        </div>
+
+        <!-- 📜 Logs List -->
+        <ul id="adminLogs" style="margin-top:15px;">
+            <li>🔒 Logs are locked. Enter password to view.</li>
+        </ul>
+    </div>
+</section>
+
+ 
+    </section>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeLogin">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <label for="loginUsername">Username:</label>
+                <input type="text" id="loginUsername" name="username" required>
+                <label for="loginPassword">Password:</label>
+                <input type="password" id="loginPassword" name="password" required>
+                <button type="submit">Login</button>
+            </form>
+            <div id="loginError" style="color: red; margin-top:10px;"></div>
+        </div>
+    </div> 
+    
+    <!-- Leaflet Map Script -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
+    <!-- PDF libraries FIRST -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+    <!-- Main JavaScript -->
+    <script src="slms.js"></script> 
+  
+
+</body>
+</html>
