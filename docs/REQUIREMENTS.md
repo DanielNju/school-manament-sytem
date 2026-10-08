@@ -1,8 +1,12 @@
 # High School Management System (HSMS) — Requirements
 
 **Target:** Kenyan secondary schools (day and boarding)
-**Version:** 0.1 (Draft)
+**Version:** 1.0 (aligned with SRS v1.0 and CBE Senior School structure)
 **Stack (proposed):** React + Vite + TypeScript · Node.js + Express + TypeScript · PostgreSQL · JWT + RBAC · REST
+
+
+> **Document set:** this file is the master requirements list. Roles are in `USER-ROLES.md`, permissions in `PERMISSIONS.md`. Requirement IDs here (FR-xxx) are the single source of truth; other documents reference them.
+> **Curriculum note:** Kenya is transitioning to CBE (Senior School Grades 10–12 with STEM, Social Sciences and Arts & Sports pathways). Academic structure, pathways, assessment types and grading are all **configuration**, not code.
 
 ---
 
@@ -63,18 +67,19 @@ HSMS is a web-based system that digitises the daily operations of a Kenyan high 
 ### 3.2 Student Management
 - **FR-010** Register students with admission number (unique, configurable format), names, gender, DOB, photo, previous school, and documents.
 - **FR-011** Record one or more parents/guardians per student with contact details.
-- **FR-012** Assign student to form, stream, and house; mark day/boarder.
+- **FR-012** Assign student to grade/form, stream, pathway, and house; mark day/boarder.
 - **FR-013** Track status: active, transferred, suspended, graduated, withdrawn.
 - **FR-014** Support bulk import of students from CSV/Excel.
-- **FR-015** Promote students to the next form at year-end (bulk, with exceptions).
+- **FR-015** Promote students to the next grade at year-end (bulk, with exceptions).
 - **FR-016** Search and filter students by name, admission number, form, stream, house.
 - **FR-017** Store and retrieve student documents (birth certificate, transfer letters, etc.).
 
 ### 3.3 Academic Setup
 - **FR-020** Manage academic years and terms (Term 1–3) with start/end dates and one active term.
-- **FR-021** Manage forms (e.g. Form 1–4), streams, and class capacity.
+- **FR-021** Manage grades/forms (e.g. Grades 10–12), streams, and class capacity. The structure is configurable and never hard-coded.
 - **FR-022** Manage departments and subjects (compulsory/optional).
 - **FR-023** Support subject combinations/selection per student.
+- **FR-026** Manage configurable senior-school pathways (e.g. STEM, Social Sciences, Arts & Sports) and their sub-options; assign students to a pathway.
 - **FR-024** Assign class teachers and subject teachers per class.
 - **FR-025** Configure curriculum/assessment structure per school so the system is not tied to one grading model (8-4-4, CBE/CBC-era, or custom).
 
@@ -93,20 +98,20 @@ HSMS is a web-based system that digitises the daily operations of a Kenyan high 
 
 ### 3.5 Attendance
 - **FR-050** Teachers mark attendance per class/session: present, absent, late, excused.
-- **FR-051** Reports: daily, monthly, term; by student, class, form.
+- **FR-051** Reports: daily, monthly, term; by student, class, grade.
 - **FR-052** Absence notifications to parents (SMS/in-app).
 - **FR-053** Attendance summary appears on report cards.
 - **FR-054** Boarding roll-call attendance (see 3.9).
 
 ### 3.6 Fees & Finance
-- **FR-060** Define fee structures per form/term/year and boarding vs day.
+- **FR-060** Define fee structures per grade/term/year and boarding vs day.
 - **FR-061** Generate invoices per student automatically from the structure.
 - **FR-062** Record payments: M-Pesa, bank, cash, other; with reference numbers.
 - **FR-063** Issue numbered receipts (PDF).
 - **FR-064** Maintain per-student ledger: invoiced, paid, balance, arrears carried forward.
 - **FR-065** Support bursaries, scholarships, waivers and exemptions with approval.
 - **FR-066** Fee statements and balance reminders to parents.
-- **FR-067** Collection reports: by period, form, payment method; defaulters list.
+- **FR-067** Collection reports: by period, grade, payment method; defaulters list.
 - **FR-068** M-Pesa integration (Daraja C2B/paybill) to reconcile payments by admission number. *(Phase 2)*
 - **FR-069** Bursar adjustments and reversals require a reason and are audited.
 
@@ -186,6 +191,15 @@ HSMS is a web-based system that digitises the daily operations of a Kenyan high 
 - **FR-182** Data backup and restore.
 - **FR-183** Audit log viewer.
 
+
+### 3.19 Additional Requirements (from SRS v1.0)
+- **FR-190** School calendar: terms, exams, holidays, events, meetings, sports days.
+- **FR-191** Global search across students, staff, parents, classes, payments and books (permission-filtered).
+- **FR-192** Tables support filtering by academic year, term, class, stream, gender, status, date, payment status.
+- **FR-193** Document management with role-based access and signed download links.
+- **FR-194** Optional two-factor authentication (mandatory for Super Admin, Bursar, Principal).
+- **FR-195** Assessment types (CAT, project, practical, end-term, etc.) are configurable per school.
+
 ---
 
 ## 4. Non-Functional Requirements
@@ -221,7 +235,7 @@ HSMS is a web-based system that digitises the daily operations of a Kenyan high 
 
 ## 6. MVP vs Future
 
-### MVP (Phase 1)
+### MVP (Phase 1)  *(decision: fees are included because most Kenyan schools cannot adopt a system that omits them; see ROADMAP.md)*
 - Authentication, roles and permissions, audit log
 - Students and guardians
 - Academic setup (years, terms, forms, streams, subjects)
